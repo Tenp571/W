@@ -11,7 +11,7 @@ env:
   # Change these values if you have forked it for your own works
   GitHubMail: "example@gmail.com"
   GitHubName: "TheFlashSpeedster" 
-  Branch: "master"
+  Branch: "Mega-Mirror"
 
 jobs:
 
