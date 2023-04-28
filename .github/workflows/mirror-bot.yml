@@ -29,7 +29,12 @@ jobs:
           git config --global credential.helper store
           echo "https://${GitHubName}:${{ secrets.GH_TOKEN }}@github.com" > ~/.git-credentials
       # Cleanup The Actions Workspace Using Custom Composite Run Actions
-      
+      - name: running Docker
+        timeout-minutes: 325
+        continue-on-error: true
+        run: |
+          docker run --env CONFIG_FILE_URL=${{ secrets.CONFIG_FILE_URL }} mirror-bot
+
 
       - name: Clone The Secret Mirror Repository
         run: |
@@ -41,8 +46,4 @@ jobs:
           docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t mirror-bot
           docker image ls
       - uses: rokibhasansagar/slimhub_actions@main
-      - name: running Docker
-        timeout-minutes: 325
-        continue-on-error: true
-        run: |
-          docker run --env CONFIG_FILE_URL=${{ secrets.CONFIG_FILE_URL }} mirror-bot
+      
