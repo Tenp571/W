@@ -15,19 +15,7 @@ env:
 
 jobs:
 
-  trigger:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Wait and Early Trigger next workflow
-        run: |
-          # Waits 300 minutes 
-          while ((${TIME_LEFT:=300} > 0)); do
-            printf "Please wait %.f minutes ...\n" "${TIME_LEFT}"
-            sleep 5m
-            TIME_LEFT=$((TIME_LEFT - 5))
-          done
-          # Triggers same workflow before the other job finishes
-          curl -X POST --header "Authorization: token ${{ secrets.GH_TOKEN }}" https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/mirror-bot.yml/dispatches -d '{"ref":"main"}'
+  
   mirror:
     runs-on: ubuntu-latest
     steps:
